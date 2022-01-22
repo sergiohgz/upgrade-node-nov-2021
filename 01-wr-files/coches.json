@@ -1,0 +1,39 @@
+[{
+"id": 1, "marca": "Volkswagen", "modelo": "Golf", "annoFabricacion": 2020 },
+    {
+        "id": 2,
+        "marca": "Volkswagen",
+        "modelo": "Polo",
+        "annoFabricacion": 2015
+    },
+    {
+        "id": 3,
+        "marca": "Ford",
+        "modelo": "Focus",
+        "annoFabricacion": 2022
+    },
+    {
+        "id": 4,
+        "marca": "Mercedes",
+        "modelo": "Clase A",
+        "annoFabricacion": 2020
+    },
+    {
+        "marca": "Ford",
+        "modelo": "Fiesta",
+        "annoFabricacion": 2004,
+        "id": 5
+    },
+    {
+        "marca": "Fiat",
+        "modelo": "Punto",
+        "annoFabricacion": 2006,
+        "id": 6
+    },
+    {
+        "marca": "BMW",
+        "modelo": "118d",
+        "annoFabricacion": 2020,
+        "id": 7
+    }
+]
