@@ -1,5 +1,6 @@
 const express = require('express');
 const cochesRouter = require('./router/coches.router');
+const db = require('./db');
 
 const PORT = 3000;
 
@@ -23,6 +24,9 @@ server.use((err, _req, res, _next) => {
         .json(err.message || 'Error inesperado en servidor');
 });
 
-server.listen(PORT, () => {
-    console.log(`Iniciado servidor express en puerto ${PORT}`);
+db.connectDB().then(() => {
+    console.log('Conectado a base de datos Mongo');
+    server.listen(PORT, () => {
+        console.log(`Iniciado servidor express en puerto ${PORT}`);
+    });
 });
