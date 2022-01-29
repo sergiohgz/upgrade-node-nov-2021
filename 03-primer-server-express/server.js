@@ -1,16 +1,23 @@
 const express = require('express');
 const cochesRouter = require('./router/coches.router');
+const clientesRouter = require('./router/clientes.router');
 const db = require('./db');
 
 const PORT = 3000;
 
 const server = express();
 
+// Añadimos los middlewares para poder leer los body
+server.use(express.json());
+server.use(express.urlencoded({ extended: false })); // extended = false utiliza la librería querystring, extended = true utiliza la librería qs
+
+
 server.get('/', (req, res) => {
     res.status(200).send('Server is up & running');
 });
 
 server.use('/coches', cochesRouter);
+server.use('/clientes', clientesRouter);
 
 server.use('*', (req, res, next) => {
     const error = new Error('Ruta no encontrada');

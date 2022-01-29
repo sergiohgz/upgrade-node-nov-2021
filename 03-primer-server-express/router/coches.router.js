@@ -88,21 +88,51 @@ cochesRouter.get('/:id', (req, res, next) => {
 });
 
 cochesRouter.post('/', (req, res, next) => {
-    const error = new Error('Method POST not implemented');
-    error.status = 405;
-    return next(error);
+    console.log('Body recibido', req.body);
+    const nuevoCoche = new Coche(/*{
+        marca: req.body.marca,
+        modelo: req.body.modelo,
+        annoFabricacion: req.body.annoFabricacion,
+    }*/
+    req.body);
+
+    return nuevoCoche.save()
+        .then(() => {
+            return res.status(201).json(nuevoCoche);
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
 });
 
 cochesRouter.put('/:id', (req, res, next) => {
-    const error = new Error('Method PUT not implemented');
-    error.status = 405;
-    return next(error);
+    const id = req.params.id;
+    const cocheEditado = new Coche(req.body);
+    cocheEditado._id = id; // Reasignamos el id para sobreescribir el documento en la DB
+    return Coche.findByIdAndUpdate(id, cocheEditado, { /* returnDocument: 'after', */ new: true })
+        .then(cocheActualizado => {
+            return res.status(200).json(cocheActualizado);
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
 });
 
 cochesRouter.delete('/:id', (req, res, next) => {
-    const error = new Error('Method DELETE not implemented');
-    error.status = 405;
-    return next(error);
+    const id = req.params.id;
+    return Coche.findByIdAndDelete(id)
+        .then(() => {
+            return res.status(200).json(`Coche con id ${id} eliminado`);
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
 });
 
 module.exports = cochesRouter;
