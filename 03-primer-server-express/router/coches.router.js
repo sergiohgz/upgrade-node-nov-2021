@@ -109,9 +109,18 @@ cochesRouter.post('/', (req, res, next) => {
 
 cochesRouter.put('/:id', (req, res, next) => {
     const id = req.params.id;
-    const cocheEditado = new Coche(req.body);
-    cocheEditado._id = id; // Reasignamos el id para sobreescribir el documento en la DB
-    return Coche.findByIdAndUpdate(id, cocheEditado, { /* returnDocument: 'after', */ new: true })
+    // const cocheEditado = new Coche(req.body);
+    // cocheEditado._id = id; // Reasignamos el id para sobreescribir el documento en la DB
+    // return Coche.findByIdAndUpdate(id, cocheEditado, { /* returnDocument: 'after', */ new: true })
+    //     .then(cocheActualizado => {
+    //         return res.status(200).json(cocheActualizado);
+    //     })
+    //     .catch(err => {
+    //         const error = new Error(err);
+    //         error.status = 500;
+    //         return next(error);
+    //     });
+    return Coche.findByIdAndUpdate(id, { $set: req.body }, { new: true })
         .then(cocheActualizado => {
             return res.status(200).json(cocheActualizado);
         })
