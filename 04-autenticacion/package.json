@@ -1,0 +1,28 @@
+{
+  "name": "03-primer-server-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon",
+    "poblar:coches": "node ./seeds/coche.seed.js",
+    "poblar:clientes": "node ./seeds/cliente.seed.js",
+    "poblar:empleados": "node ./seeds/empleado.seed.js",
+    "init-db": "node ./seeds/init-db.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.8",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
+  }
+}
