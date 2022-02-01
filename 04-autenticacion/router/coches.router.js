@@ -1,5 +1,6 @@
 const express = require('express');
 const Coche = require('../models/Coche');
+const auth = require('../middlewares/auth.middleware');
 
 const cochesRouter = express.Router();
 
@@ -10,7 +11,7 @@ const coches = [
 ];
 
 // GET /coches/ === /coches
-cochesRouter.get('/', (req, res) => {
+cochesRouter.get('/', (req, res, next) => {
     // const anterioresA = Number(req.query.anterioresA);
     // const posterioresA = Number(req.query.posterioresA);
     // if (!isNaN(anterioresA) && !isNaN(posterioresA)) {
@@ -87,7 +88,7 @@ cochesRouter.get('/:id', (req, res, next) => {
         });
 });
 
-cochesRouter.post('/', (req, res, next) => {
+cochesRouter.post('/', [auth.isAuthenticated], (req, res, next) => {
     console.log('Body recibido', req.body);
     const nuevoCoche = new Coche(/*{
         marca: req.body.marca,
@@ -107,7 +108,7 @@ cochesRouter.post('/', (req, res, next) => {
         });
 });
 
-cochesRouter.put('/:id', (req, res, next) => {
+cochesRouter.put('/:id', [auth.isAuthenticated], (req, res, next) => {
     const id = req.params.id;
     // const cocheEditado = new Coche(req.body);
     // cocheEditado._id = id; // Reasignamos el id para sobreescribir el documento en la DB
@@ -131,7 +132,7 @@ cochesRouter.put('/:id', (req, res, next) => {
         });
 });
 
-cochesRouter.delete('/:id', (req, res, next) => {
+cochesRouter.delete('/:id', [auth.isAuthenticated], (req, res, next) => {
     const id = req.params.id;
     return Coche.findByIdAndDelete(id)
         .then(() => {
